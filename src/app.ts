@@ -4,6 +4,10 @@ import cors from 'cors';
 import express, { Router } from 'express';
 // import morgan from 'morgan';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // import winston from './lib/logger';
 

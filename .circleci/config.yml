@@ -37,7 +37,7 @@ workflows:
       # - build_and_push:
       #     context:
       #       - global
-      #     repo: lab46-redirector
+      #     repo: ts-api-postgres-boilerplate
       #     requires:
       #       - wait_for_approval
 

@@ -6,7 +6,7 @@ orbs:
 variables:
   - &build-image cimg/node:20.2.0
   - &workspace /home/circleci/project
-  - &ecr-repo ts-api-postgres-boilerplate
+  - &ecr-repo p-stack-be
 
 parameters:
   version-tag:

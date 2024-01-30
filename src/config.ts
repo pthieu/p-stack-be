@@ -13,7 +13,7 @@ export interface Config {
   readonly AWS_REGION: string;
 }
 
-const PROJECT_NAME = 'ts-api-postgres-boilerplate';
+const PROJECT_NAME = 'p-stack-be';
 // XXX(Phong): note: a lot of libs use NODE_ENV, so we need to set it
 const ENVIRONMENT =
   process.env.ENVIRONMENT || process.env.NODE_ENV || 'development';

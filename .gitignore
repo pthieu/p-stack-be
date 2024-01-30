@@ -13,6 +13,7 @@ yarn-error.log*
 
 # IDE
 .vscode
+!.vscode/launch.json
 
 # Dependency directory
 # Commenting this out is preferred by some people, see

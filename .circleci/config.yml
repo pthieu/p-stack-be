@@ -6,6 +6,7 @@ orbs:
 variables:
   - &build-image cimg/node:20.2.0
   - &workspace /home/circleci/project
+  - &ecr-repo ts-api-postgres-boilerplate
 
 parameters:
   version-tag:
@@ -37,9 +38,13 @@ workflows:
       # - build_and_push:
       #     context:
       #       - global
-      #     repo: ts-api-postgres-boilerplate
+      #     repo: *ecr-repo
       #     requires:
-      #       - wait_for_approval
+      #       - lint_and_compile
+      #       # - wait_for_approval
+      # - run_migrations:
+      #     requires:
+      #       - build_and_push
 
 jobs:
   build_workspace:
@@ -75,13 +80,17 @@ jobs:
       - run:
           name: Lint
           command: pnpm run lint
+  run_migrations:
+    docker:
+      - image: *build-image
+        environment:
+          NODE_ENV: production
+    steps:
+      - attach_workspace:
+          at: *workspace
       - run:
-          name: Compile
-          command: pnpm run build
-      - persist_to_workspace:
-          root: *workspace
-          paths:
-            - .
+          name: Run Migrations
+          command: pnpm run migrate
   build_and_push:
     resource_class: arm.medium
     machine:
@@ -90,12 +99,12 @@ jobs:
     parameters:
       repo:
         type: string
-        default: ''
+        default: ""
         description: |
           The name of the ECR repo to push an image to.
       region:
         type: string
-        default: 'us-west-2'
+        default: "us-west-2"
         description: |
           The AWS region to push the image to.
     steps:

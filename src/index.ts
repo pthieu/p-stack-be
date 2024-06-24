@@ -4,10 +4,13 @@ import app from '~/app';
 
 const PORT = config.PORT;
 
-export const server = app(ApiRouter);
+const main = async () => {
+  const server = await app(ApiRouter);
+  server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+  return server;
+};
 
-const _server = server.listen(PORT, () => {
-  console.log(`Server listening port ${PORT}`);
-});
-
-export default _server;
+const server = main();
+export default server;

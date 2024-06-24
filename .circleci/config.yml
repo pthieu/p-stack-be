@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.2.1
+  gcp-gcr: circleci/gcp-gcr@0.16.3
 
 variables:
   - &build-image cimg/node:20.2.0
@@ -35,7 +36,7 @@ workflows:
       #     type: approval
       #     requires:
       #       - lint_and_compile
-      # - build_and_push:
+      # - build_and_push_aws:
       #     context:
       #       - global
       #     repo: *ecr-repo
@@ -44,7 +45,13 @@ workflows:
       #       # - wait_for_approval
       # - run_migrations:
       #     requires:
-      #       - build_and_push
+      #       - build_and_push_aws
+      - build_and_push_gcp:
+          context:
+            - global
+          repo: *ecr-repo
+          requires:
+            - lint_and_compile
 
 jobs:
   build_workspace:
@@ -91,7 +98,7 @@ jobs:
       - run:
           name: Run Migrations
           command: pnpm run migrate
-  build_and_push:
+  build_and_push_aws:
     resource_class: arm.medium
     machine:
       image: ubuntu-2004:current
@@ -114,3 +121,26 @@ jobs:
           region: us-west-2
           repo: << parameters.repo >>
           tag: << pipeline.parameters.version-tag >>,latest
+  build_and_push_gcp:
+    executor: gcp-gcr/default
+    parameters:
+      repo:
+        type: string
+        default: ""
+        description: |
+          The name of the ECR repo to push an image to.
+      region:
+        type: string
+        default: "us-west1"
+        description: |
+          The AWS region to push the image to.
+    steps:
+      - attach_workspace:
+          at: *workspace
+      - gcp-gcr/gcr-auth
+      - gcp-gcr/build-image:
+          image: << parameters.repo >>
+          registry-url: us.gcr.io
+      - gcp-gcr/push-image:
+          image: << parameters.repo >>
+          registry-url: us.gcr.io

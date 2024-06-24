@@ -6,12 +6,14 @@ import express, { Router } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { useApollo } from './gql';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // import winston from './lib/logger';
 
-export default function app(routes: Router) {
+export default async function app(routes: Router) {
   const app = express();
 
   app.use(cors());
@@ -29,6 +31,7 @@ export default function app(routes: Router) {
   app.get('/favicon.ico', (_, res) => res.sendStatus(204));
 
   app.use('/', routes);
+  app.use('/graphql', await useApollo());
 
   return app;
 }

@@ -1,14 +1,14 @@
 {
-  "id": "5fc81a2b-9887-4365-bb4b-ae4d0e98f99a",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {},
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "5fc81a2b-9887-4365-bb4b-ae4d0e98f99a",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

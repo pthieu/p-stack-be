@@ -1,10 +1,8 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "id": "14c0cb44-1aa1-4067-b58a-28cd1addd1dc",
-  "prevId": "5fc81a2b-9887-4365-bb4b-ae4d0e98f99a",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "users": {
+    "public.users": {
       "name": "users",
       "schema": "",
       "columns": {
@@ -38,15 +36,24 @@
       },
       "indexes": {
         "email_idx": {
-          "name": "email_idx",
           "columns": [
-            "email"
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": true
+          "with": {},
+          "name": "email_idx",
+          "isUnique": true,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {}
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
     }
   },
   "enums": {},
@@ -55,5 +62,7 @@
     "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "14c0cb44-1aa1-4067-b58a-28cd1addd1dc",
+  "prevId": "5fc81a2b-9887-4365-bb4b-ae4d0e98f99a"
 }

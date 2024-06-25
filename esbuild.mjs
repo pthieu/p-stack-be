@@ -9,7 +9,7 @@ const OUT_DIR = 'dist';
 await build({
   entryPoints: ['src/index.ts'],
   platform: 'node',
-  target: 'es2022',
+  target: 'esnext',
   format: 'esm',
   bundle: true,
   minify: false,
@@ -30,11 +30,13 @@ await build({
   // await migrations to run before we can export the server.
   banner: {
     js: `
-        // import { fileURLToPath } from 'url';
-        // import { createRequire as topLevelCreateRequire } from 'module';
-        // const require = topLevelCreateRequire(import.meta.url);
-        // const __filename = fileURLToPath(import.meta.url);
-        // const __dirname = path.dirname(__filename);
+        import { createRequire } from 'node:module';
+        import * as __path from 'node:path';
+        import * as __url from 'node:url';
+
+        globalThis.require = createRequire(import.meta.url);
+        globalThis.__filename = __url.fileURLToPath(import.meta.url);
+        globalThis.__dirname = __path.dirname(__filename);
         `,
   },
 });
@@ -49,5 +51,6 @@ await build({
   bundle: true,
   minify: true,
   platform: 'node',
+  packages: 'external',
   outdir: `${OUT_DIR}/migrations`,
 }).catch(() => process.exit(1));

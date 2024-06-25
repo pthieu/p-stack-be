@@ -41,7 +41,7 @@ async function getCloudSecrets() {
   return secrets satisfies Config as Config;
 }
 
-// XXX(Phong): must inject  before the config gets frozen or erros will throw
+// XXX(Phong): must inject before the config gets frozen or errors will throw
 if (process.env.ENVIRONMENT === 'production') {
   const cloudSecrets = await getCloudSecrets();
   Object.entries(cloudSecrets).forEach(([key, value]) => {

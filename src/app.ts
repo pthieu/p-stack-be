@@ -2,11 +2,13 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, { Router } from 'express';
-import path from 'path';
+import path from 'node:path';
+import url from 'node:url';
 
 import { useApollo } from './gql';
 
-// import winston from './lib/logger';
+const _filename = url.fileURLToPath(import.meta.url);
+const _dirname = path.dirname(_filename);
 
 export default async function app(routes: Router) {
   const app = express();
@@ -14,7 +16,7 @@ export default async function app(routes: Router) {
   app.use(cors());
   app.use(compression());
   // app.use(morgan('combined', { stream: winston.stream }));
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(_dirname, 'public')));
 
   // XXX(Phong): if you're doing any type of proxying or routing, you should
   // comment this out because it will destroy the buffer stream for the body

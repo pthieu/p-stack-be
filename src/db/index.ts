@@ -1,9 +1,13 @@
 import { PostgresJsDatabase, drizzle } from 'drizzle-orm/postgres-js';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { resolve } from 'node:path';
+import path, { resolve } from 'node:path';
+import url from 'node:url';
 import postgres from 'postgres';
 
 import * as schema from './schema';
+
+const _filename = url.fileURLToPath(import.meta.url);
+const _dirname = path.dirname(_filename);
 
 let db: PostgresJsDatabase<typeof schema>;
 export function createOrGetDb() {
@@ -37,7 +41,7 @@ export async function migrateLatest() {
 
   const db = drizzle(client);
   // XXX(Phong): if you change `process.cwd()`, you need to change Dockerfile
-  const dbDir = resolve(__dirname, 'migrations');
+  const dbDir = resolve(_dirname, 'migrations');
   await migrate(db, {
     migrationsFolder: dbDir,
   });

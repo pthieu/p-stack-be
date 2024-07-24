@@ -31,13 +31,13 @@ dependencies:
     version: 16.4.5
   drizzle-graphql:
     specifier: ^0.8.4
-    version: 0.8.4(drizzle-orm@0.31.2)(graphql@16.9.0)
+    version: 0.8.4(drizzle-orm@0.32.1)(graphql@16.9.0)
   drizzle-kit:
-    specifier: ^0.22.7
-    version: 0.22.7
+    specifier: ^0.23.0
+    version: 0.23.0
   drizzle-orm:
-    specifier: ^0.31.2
-    version: 0.31.2(postgres@3.4.4)
+    specifier: ^0.32.1
+    version: 0.32.1(postgres@3.4.4)
   esbuild:
     specifier: ^0.21.5
     version: 0.21.5
@@ -2641,21 +2641,21 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /drizzle-graphql@0.8.4(drizzle-orm@0.31.2)(graphql@16.9.0):
+  /drizzle-graphql@0.8.4(drizzle-orm@0.32.1)(graphql@16.9.0):
     resolution: {integrity: sha512-FYALOc4R7k4dHOPseTFFt2LT5QzKmv62j3eMeXYHkk3qKbmlG1Lz66aBsPYpm74fOCrzlH1PiiM122bwx4Brew==}
     peerDependencies:
       drizzle-orm: '>=0.30.9'
       graphql: '>=16.3.0'
     dependencies:
-      drizzle-orm: 0.31.2(postgres@3.4.4)
+      drizzle-orm: 0.32.1(postgres@3.4.4)
       graphql: 16.9.0
       graphql-parse-resolve-info: 4.13.0(graphql@16.9.0)
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /drizzle-kit@0.22.7:
-    resolution: {integrity: sha512-9THPCb2l1GPt7wxhws9LvTR0YG565ZlVgTuqGMwjs590Kch1pXu4GyjEArVijSF5m0OBj3qgdeKmuJXhKXgWFw==}
+  /drizzle-kit@0.23.0:
+    resolution: {integrity: sha512-w9jE97z193dd4jzAyj4Uv2SOh8Ydue70Ki6W0awy4bGM1aPXan6zD6Yv+nNTA6oGgNTDl2MJFxutjHG4fden5g==}
     hasBin: true
     dependencies:
       '@esbuild-kit/esm-loader': 2.6.5
@@ -2665,8 +2665,8 @@ packages:
       - supports-color
     dev: false
 
-  /drizzle-orm@0.31.2(postgres@3.4.4):
-    resolution: {integrity: sha512-QnenevbnnAzmbNzQwbhklvIYrDE8YER8K7kSrAWQSV1YvFCdSQPzj+jzqRdTSsV2cDqSpQ0NXGyL1G9I43LDLg==}
+  /drizzle-orm@0.32.1(postgres@3.4.4):
+    resolution: {integrity: sha512-Wq1J+lL8PzwR5K3a1FfoWsbs8powjr3pGA4+5+2ueN1VTLDNFYEolUyUWFtqy8DVRvYbL2n7sXZkgVmK9dQkng==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -2676,6 +2676,7 @@ packages:
       '@op-engineering/op-sqlite': '>=2'
       '@opentelemetry/api': ^1.4.1
       '@planetscale/database': '>=1'
+      '@prisma/client': '*'
       '@tidbcloud/serverless': '*'
       '@types/better-sqlite3': '*'
       '@types/pg': '*'
@@ -2691,6 +2692,7 @@ packages:
       mysql2: '>=2'
       pg: '>=8'
       postgres: '>=3'
+      prisma: '*'
       react: '>=18'
       sql.js: '>=1'
       sqlite3: '>=5'
@@ -2710,6 +2712,8 @@ packages:
       '@opentelemetry/api':
         optional: true
       '@planetscale/database':
+        optional: true
+      '@prisma/client':
         optional: true
       '@tidbcloud/serverless':
         optional: true
@@ -2740,6 +2744,8 @@ packages:
       pg:
         optional: true
       postgres:
+        optional: true
+      prisma:
         optional: true
       react:
         optional: true

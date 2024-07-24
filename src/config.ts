@@ -58,6 +58,7 @@ const config: Config = Object.freeze({
   AWS_REGION,
 });
 
+// XXX(Phong): used this for required vars, because it will throw with no value
 function getEnvVariable<T = string>(
   name: string,
   defaultValue?: T,

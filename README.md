@@ -1,7 +1,10 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
-- [ ] add migration to circleci config
+- [ ] change migration file naming: https://orm.drizzle.team/kit-docs/overview#migration-files
+- [ ] add multi-row insert example
+- [ ] remove axios, use built in `fetch` from node
+- [ ] add gql (make it easy to remove)
 - [ ] Look into docker layer caching to improve build speed
 - [ ] Add a logger lib to add timestamps
 - [ ] Add pagination example

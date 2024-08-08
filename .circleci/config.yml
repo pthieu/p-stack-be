@@ -52,6 +52,25 @@ workflows:
           repo: *ecr-repo
           requires:
             - lint_and_compile
+      # - run_migrations:
+      #     requires:
+      #       - build_and_push_gcp
+  feature_branch:
+    jobs:
+      - build_workspace:
+          filters:
+            branches:
+              ignore:
+                - main
+      - lint_and_compile:
+          requires:
+            - build_workspace
+      - local_build:
+          requires:
+            - build_workspace
+      - local_db_check:
+          requires:
+            - build_workspace
 
 jobs:
   build_workspace:
@@ -98,6 +117,39 @@ jobs:
       - run:
           name: Run Migrations
           command: pnpm run migrate
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - .
+  local_build:
+    docker:
+      - image: *build-image
+    steps:
+      - attach_workspace:
+          at: *workspace
+      - run:
+          name: Codegen GQL files
+          command: npm run gql:codegen
+      - run:
+          name: Build bundle (esbuild)
+          command: npm run build
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - .
+  local_db_check:
+    docker:
+      - image: *build-image
+    steps:
+      - attach_workspace:
+          at: *workspace
+      - run:
+          name: Check local DB integrity
+          command: npm run db:check
+      - persist_to_workspace:
+          root: *workspace
+          paths:
+            - .
   build_and_push_aws:
     resource_class: arm.medium
     machine:

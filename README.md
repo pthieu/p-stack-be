@@ -1,10 +1,10 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
-- [ ] change migration file naming: https://orm.drizzle.team/kit-docs/overview#migration-files
+- [ ] switch to hono, uses standard js api, can run anywhere (maybe?)
 - [ ] add multi-row insert example
+- [ ] bring over gql from cedar, replace current gql
 - [ ] remove axios, use built in `fetch` from node
-- [ ] add gql (make it easy to remove)
 - [ ] Look into docker layer caching to improve build speed
 - [ ] Add a logger lib to add timestamps
 - [ ] Add pagination example
